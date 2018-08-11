@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/img">
+        <file alias="black.svg">icons/black.svg</file>
+        <file alias="white.svg">icons/white.svg</file>
+        <file alias="windowIcon.png">icons/windowIcon.png</file>
+    </qresource>
+</RCC>
