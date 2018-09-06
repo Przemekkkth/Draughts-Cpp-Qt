@@ -217,6 +217,39 @@ void GameAlgorithm::setBlackHighlightsType(QPoint clickedPoint)
             {
                 setHighlightType( x-1, y-1, GameAlgorithm::Enemy);
                 setHighlightType(x - 2, y - 2, GameAlgorithm::PossibleDestroyEnemy);
+
+
+//2 X Enemy left piece
+                if( (x-3) >= 0 && (y-3) >= 0 && board()->boardData(x-3, y - 3) == GameBoard::WhitePiece)
+                {
+                    if( (x-4) >= 0 && (y-4) >= 0 && board()->boardData(x-4, y-4) == GameBoard::Empty)
+                    {
+                        setHighlightType(x-3, y-3, GameAlgorithm::Enemy);
+                        setHighlightType(x-4, y-4, GameAlgorithm::PossibleDestroyEnemy);
+//3 X Enemy left piece
+                        if( (x-5) >= 0 && (y-5) >= 0 && board()->boardData(x-5, y-5) == GameBoard::WhitePiece)
+                        {
+                            if( (x-6) >= 0 && (y-6) >= 0 && board()->boardData(x-6, y-6) == GameBoard::Empty)
+                            {
+                                setHighlightType(x-5, y-5, GameAlgorithm::Enemy);
+                                setHighlightType(x-6, y-6, GameAlgorithm::PossibleDestroyEnemy);
+//4 X Enemy left piece
+                                if( (x-7) >= 0 && (y-7) >= 0 && board()->boardData(x-7, y-7) == GameBoard::WhitePiece)
+                                {
+                                    if( (x-8) >= 0 && (y-8) >= 0 && board()->boardData(x-8, y-8) == GameBoard::Empty)
+                                    {
+                                        setHighlightType(x-7, y-7, GameAlgorithm::Enemy);
+                                        setHighlightType(x-8, y-8, GameAlgorithm::PossibleDestroyEnemy);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+
                 setModeType(GameAlgorithm::MoveMode);
             }
         }
