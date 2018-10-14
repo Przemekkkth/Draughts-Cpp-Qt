@@ -32,10 +32,7 @@ public:
     void setCurrentPlayer(Player p);
     Player currentPlayer() const;
 
-
     void checkWinCondition();
-
-
 
     void setHightlightPointPiece(const QPoint&);
     QPoint hightlightPointPiece() const;
@@ -54,6 +51,11 @@ private:
     Player m_currentPlayer;    
     HightlightType m_hightlightBoard[8][8];
     ModeType m_type;
+
+    void checkTopLeftEnemiesPos(int xPos, int yPos);
+    void checkTopRightEnemiesPos(int xPos, int yPos);
+    void checkBottomLeftEnemiesPos(int xPos, int yPos);
+    void checkBottomRightEnemiesPos(int xPos, int yPos);
 private slots:
     void setHighlightsType(QPoint clickedPoint);
     void setMovesType(QPoint clickedPoint);
