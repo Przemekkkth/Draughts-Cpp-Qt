@@ -115,7 +115,7 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
                                       hightlightPointPiece().y() ,
                                       clickedPoint.x() ,
                                       clickedPoint.y() );
-
+/* This work
         for(int row = 0; row < board()->getRows(); ++row)
         {
             for(int column = 0; column < board()->getColumns(); ++column)
@@ -127,7 +127,29 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
                 }
             }
         }
+*/ /*New version */
+    QPoint oldClicked(hightlightPointPiece().x(), hightlightPointPiece().y());
+    QPoint newClicked(clickedPoint.x(), clickedPoint.y());
+    for(int i = 2 ; oldClicked != newClicked; i += 2)
+    {
+        if(newClicked.x() < oldClicked.x())
+        {
+            if(highlightType(oldClicked.x() - i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy){
+                if(highlightType(oldClicked.x() - i - 1, oldClicked.y() - i - 1) == GameAlgorithm::Enemy)
+                {
+                    board()->setBoardData(oldClicked.x() - i - 1, oldClicked.y() - i - 1, GameBoard::Empty);
+                    oldClicked = QPoint(oldClicked.x() - i - 1, oldClicked.y() - i - 1);
+                }
+            }
+        }
+        else{
+            break;
+        }
+    }
 
+
+
+// end new version
         emit countOfBlackPiecesChanged( board()->countOfBlack() );
         emit countOfWhitePiecesChanged( board()->countOfWhite() );
 
