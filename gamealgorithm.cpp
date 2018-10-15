@@ -128,36 +128,76 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
             }
         }
 */ /*New version */
+    if(currentPlayer() == Player1)
+    {
+        qDebug() << "Player1";
+    }
+    else{
+        qDebug() << "Player2";
+    }
     QPoint oldClicked(hightlightPointPiece().x(), hightlightPointPiece().y());
     QPoint newClicked(clickedPoint.x(), clickedPoint.y());
-
-    for(int i = 2 ; oldClicked != newClicked; )
-    {
-        if(newClicked.x() < oldClicked.x())
+    if(currentPlayer() == Player1){
+        for(int i = 2 ; oldClicked != newClicked; )
         {
-            if(highlightType(oldClicked.x() - i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy){
-                if(highlightType(oldClicked.x() - i + 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
-                {
-                    board()->setBoardData(oldClicked.x() - i + 1, oldClicked.y() - i + 1, GameBoard::Empty);
-                    oldClicked = QPoint(oldClicked.x() - i , oldClicked.y() - i );
-                }
-            }
-        }
-        else if(newClicked.x() > oldClicked.x() )
-        {
-            if(highlightType(oldClicked.x() + i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy)
+            if(newClicked.x() < oldClicked.x())
             {
-                if(highlightType(oldClicked.x() + i - 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
-                {
-                    board()->setBoardData(oldClicked.x() + i - 1, oldClicked.y() - i + 1, GameBoard::Empty);
-                    oldClicked = QPoint(oldClicked.x() + i, oldClicked.y() - i);
+                if(highlightType(oldClicked.x() - i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy){
+                    if(highlightType(oldClicked.x() - i + 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
+                    {
+                        board()->setBoardData(oldClicked.x() - i + 1, oldClicked.y() - i + 1, GameBoard::Empty);
+                        oldClicked = QPoint(oldClicked.x() - i , oldClicked.y() - i );
+                    }
                 }
             }
+            else if(newClicked.x() > oldClicked.x() )
+            {
+                if(highlightType(oldClicked.x() + i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy)
+                {
+                    if(highlightType(oldClicked.x() + i - 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
+                    {
+                        board()->setBoardData(oldClicked.x() + i - 1, oldClicked.y() - i + 1, GameBoard::Empty);
+                        oldClicked = QPoint(oldClicked.x() + i, oldClicked.y() - i);
+                    }
+                }
+            }
+
+
+            else{
+                break;
+            }
         }
+    }
+    else if( currentPlayer() == Player2)
+    {
+        for(int i = 2 ; oldClicked != newClicked; )
+        {
+            if(newClicked.x() < oldClicked.x())
+            {
+                if(highlightType(oldClicked.x() - i, oldClicked.y() + i) == GameAlgorithm::PossibleDestroyEnemy){
+                    if(highlightType(oldClicked.x() - i + 1, oldClicked.y() + i - 1) == GameAlgorithm::Enemy)
+                    {
+                        board()->setBoardData(oldClicked.x() - i + 1, oldClicked.y() + i - 1, GameBoard::Empty);
+                        oldClicked = QPoint(oldClicked.x() - i , oldClicked.y() + i );
+                    }
+                }
+            }
+            else if(newClicked.x() > oldClicked.x() )
+            {
+                if(highlightType(oldClicked.x() + i, oldClicked.y() + i) == GameAlgorithm::PossibleDestroyEnemy)
+                {
+                    if(highlightType(oldClicked.x() + i - 1, oldClicked.y() + i - 1) == GameAlgorithm::Enemy)
+                    {
+                        board()->setBoardData(oldClicked.x() + i - 1, oldClicked.y() + i - 1, GameBoard::Empty);
+                        oldClicked = QPoint(oldClicked.x() + i, oldClicked.y() + i);
+                    }
+                }
+            }
 
 
-        else{
-            break;
+            else{
+                break;
+            }
         }
     }
 
