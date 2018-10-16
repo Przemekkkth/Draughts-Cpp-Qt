@@ -50,7 +50,7 @@ void GameBoard::initBoard()
     for(int r = 0; r < m_rows; ++r)
         for(int c = 0; c < m_columns; ++c)
             setBoardData(r,c, Empty);
-
+/*
 //first row  (even/white)
     for( int idx = 0; idx < getColumns(); ++idx )
     {
@@ -87,6 +87,15 @@ void GameBoard::initBoard()
     setBoardData(2, 7, BlackPiece);
     setBoardData(4, 7, BlackPiece);
     setBoardData(6, 7, BlackPiece);
+    */
+    setBoardData(6, 7, BlackPiece);
+
+    setBoardData(5,6, WhitePiece);
+    setBoardData(3, 4, WhitePiece);
+    setBoardData(1,2, WhitePiece);
+
+    setBoardData(5,4, WhitePiece);
+    setBoardData(3, 2, WhitePiece);
 
 }
 

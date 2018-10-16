@@ -128,13 +128,7 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
             }
         }
 */ /*New version */
-    if(currentPlayer() == Player1)
-    {
-        qDebug() << "Player1";
-    }
-    else{
-        qDebug() << "Player2";
-    }
+
     QPoint oldClicked(hightlightPointPiece().x(), hightlightPointPiece().y());
     QPoint newClicked(clickedPoint.x(), clickedPoint.y());
     if(currentPlayer() == Player1){
@@ -142,16 +136,20 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
         {
             if(newClicked.x() < oldClicked.x())
             {
+//left up
                 if(highlightType(oldClicked.x() - i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy){
                     if(highlightType(oldClicked.x() - i + 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
                     {
                         board()->setBoardData(oldClicked.x() - i + 1, oldClicked.y() - i + 1, GameBoard::Empty);
                         oldClicked = QPoint(oldClicked.x() - i , oldClicked.y() - i );
+
                     }
                 }
+
             }
             else if(newClicked.x() > oldClicked.x() )
             {
+//right up
                 if(highlightType(oldClicked.x() + i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy)
                 {
                     if(highlightType(oldClicked.x() + i - 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
@@ -164,7 +162,23 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
 
 
             else{
-                break;
+//left up
+                                if(highlightType(oldClicked.x() - i, oldClicked.y() - i) == GameAlgorithm::PossibleDestroyEnemy){
+                                    if(highlightType(oldClicked.x() - i + 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy)
+                                    {
+                                        board()->setBoardData(oldClicked.x() - i + 1, oldClicked.y() - i + 1, GameBoard::Empty);
+                                        oldClicked = QPoint(oldClicked.x() - i , oldClicked.y() - i );
+
+                                    }
+                                }
+//potencially right up
+                                else if( highlightType(oldClicked.x() + i, oldClicked.y() - i ) == GameAlgorithm::PossibleDestroyEnemy )
+                                {
+                                    if( highlightType(oldClicked.x() + i - 1, oldClicked.y() - i + 1) == GameAlgorithm::Enemy){
+                                        board()->setBoardData(oldClicked.x() + i - 1, oldClicked.y() - i + 1, GameBoard::Empty);
+                                        oldClicked = QPoint(oldClicked.x() + i, oldClicked.y() - i);
+                                    }
+                                }
             }
         }
     }
@@ -196,7 +210,21 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
 
 
             else{
-                break;
+                if(highlightType(oldClicked.x() - i, oldClicked.y() + i) == GameAlgorithm::PossibleDestroyEnemy){
+                    if(highlightType(oldClicked.x() - i + 1, oldClicked.y() + i - 1) == GameAlgorithm::Enemy)
+                    {
+                        board()->setBoardData(oldClicked.x() - i + 1, oldClicked.y() + i - 1, GameBoard::Empty);
+                        oldClicked = QPoint(oldClicked.x() - i , oldClicked.y() + i );
+                    }
+                    else if(highlightType(oldClicked.x() + i, oldClicked.y() + i) == GameAlgorithm::PossibleDestroyEnemy)
+                    {
+                        if(highlightType(oldClicked.x() + i - 1, oldClicked.y() + i - 1) == GameAlgorithm::Enemy)
+                        {
+                            board()->setBoardData(oldClicked.x() + i - 1, oldClicked.y() + i - 1, GameBoard::Empty);
+                            oldClicked = QPoint(oldClicked.x() + i, oldClicked.y() + i);
+                        }
+                    }
+                }
             }
         }
     }
