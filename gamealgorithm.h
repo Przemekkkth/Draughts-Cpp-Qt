@@ -59,6 +59,8 @@ private:
 
     void removeEnemiesForPlayer1(QPoint oldClicked, QPoint newClicked);
     void removeEnemiesForPlayer2(QPoint oldClicked, QPoint newClicked);
+
+    void checkReplacementPieceToQueen();
 private slots:
     void setHighlightsType(QPoint clickedPoint);
     void setMovesType(QPoint clickedPoint);

@@ -201,6 +201,24 @@ void GameWindow::drawPieces(QPainter* painter)
                 int heightPiece = squareHeight();
                 painter->drawPixmap(x, y, widthPiece, heightPiece, piecePixmap);
             }
+            else if( algorithm->board()->boardData(r, c) == GameBoard::BlackQueen)
+            {
+                piecePixmap.load(":/img/blackQ.svg");
+                int x = r*squareWidth() + rowRankWidth();
+                int y = c * squareHeight() + columnRankHeight();
+                int widthPiece = squareWidth();
+                int heightPiece = squareHeight();
+                painter->drawPixmap(x, y, widthPiece, heightPiece, piecePixmap);
+            }
+            else if( algorithm->board()->boardData(r, c) == GameBoard::WhiteQueen)
+            {
+                piecePixmap.load(":/img/whiteQ.svg");
+                int x = r*squareWidth() + rowRankWidth();
+                int y = c * squareHeight() + columnRankHeight();
+                int widthPiece = squareWidth();
+                int heightPiece = squareHeight();
+                painter->drawPixmap(x, y, widthPiece, heightPiece, piecePixmap);
+            }
         }
     }
 }

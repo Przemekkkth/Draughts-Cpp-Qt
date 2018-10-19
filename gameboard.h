@@ -16,7 +16,7 @@ public:
     int getColumns() const;
     int countOfWhite();
     int countOfBlack();
-    enum BoardPiece{WhitePiece, BlackPiece, Empty};
+    enum BoardPiece{WhitePiece, BlackPiece, WhiteQueen, BlackQueen, Empty};
     void initBoard();
     void setBoardData(int x, int y, BoardPiece p);
     BoardPiece boardData(int x, int y);

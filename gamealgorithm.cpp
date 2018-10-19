@@ -108,6 +108,8 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
                                       hightlightPointPiece().y() ,
                                       clickedPoint.x() ,
                                       clickedPoint.y() );
+
+        checkReplacementPieceToQueen();
     }
     else if( highlightType( clickedPoint.x(), clickedPoint.y() ) == GameAlgorithm::PossibleDestroyEnemy )
     {
@@ -115,19 +117,6 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
                                       hightlightPointPiece().y() ,
                                       clickedPoint.x() ,
                                       clickedPoint.y() );
-/* This work
-        for(int row = 0; row < board()->getRows(); ++row)
-        {
-            for(int column = 0; column < board()->getColumns(); ++column)
-            {
-                if( highlightType(row, column) == GameAlgorithm::Enemy )
-                {
-                    board()->setBoardData(row, column, GameBoard::Empty);
-
-                }
-            }
-        }
-*/ /*New version */
 
     QPoint oldClicked(hightlightPointPiece().x(), hightlightPointPiece().y());
     QPoint newClicked(clickedPoint.x(), clickedPoint.y());
@@ -140,7 +129,7 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
     }
 
 
-
+    checkReplacementPieceToQueen();
 // end new version
         emit countOfBlackPiecesChanged( board()->countOfBlack() );
         emit countOfWhitePiecesChanged( board()->countOfWhite() );
@@ -487,4 +476,24 @@ void GameAlgorithm::removeEnemiesForPlayer2(QPoint oldClicked, QPoint newClicked
             }
         }
     }
+}
+
+void GameAlgorithm::checkReplacementPieceToQueen()
+{
+    for(int column = 0; column < board()->getColumns(); ++column)
+    {
+        if( board()->boardData(column, 0) == GameBoard::BlackPiece)
+        {
+            board()->setBoardData(column, 0, GameBoard::BlackQueen);
+        }
+    }
+
+    for(int column = 0; column < board()->getColumns(); ++column)
+    {
+        if( board()->boardData(column, board()->getRows() - 1) == GameBoard::WhitePiece )
+        {
+            board()->setBoardData(column, board()->getRows() - 1, GameBoard::WhiteQueen);
+        }
+    }
+
 }
