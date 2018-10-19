@@ -56,6 +56,9 @@ private:
     void checkTopRightEnemiesPos(int xPos, int yPos);
     void checkBottomLeftEnemiesPos(int xPos, int yPos);
     void checkBottomRightEnemiesPos(int xPos, int yPos);
+
+    void removeEnemiesForPlayer1(QPoint oldClicked, QPoint newClicked);
+    void removeEnemiesForPlayer2(QPoint oldClicked, QPoint newClicked);
 private slots:
     void setHighlightsType(QPoint clickedPoint);
     void setMovesType(QPoint clickedPoint);
