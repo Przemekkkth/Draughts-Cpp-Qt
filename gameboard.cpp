@@ -91,7 +91,7 @@ void GameBoard::initBoard()
     setBoardData(6, 7, BlackPiece);
 
     setBoardData(5,6, WhitePiece);
-    setBoardData(3, 4, WhitePiece);
+    setBoardData(3, 4, WhiteQueen);
     setBoardData(1,2, WhitePiece);
 
     setBoardData(5,4, WhitePiece);
@@ -114,7 +114,7 @@ int GameBoard::countOfWhite()
     int countOfWhite = 0;
     for(int r = 0; r < m_rows; ++r)
         for(int c = 0; c < m_columns; ++c)
-            if( boardData(r, c) == WhitePiece)
+            if( boardData(r, c) == WhitePiece || boardData(r, c) == WhiteQueen )
                 countOfWhite++;
     return countOfWhite;
 }
@@ -124,7 +124,7 @@ int GameBoard::countOfBlack()
     int countOfBlack = 0;
     for(int r = 0; r < m_rows; ++r)
         for(int c = 0; c < m_columns; ++c)
-            if( boardData(r, c) == BlackPiece)
+            if( boardData(r, c) == BlackPiece || boardData(r, c) == BlackQueen)
                 countOfBlack++;
     return countOfBlack;
 }

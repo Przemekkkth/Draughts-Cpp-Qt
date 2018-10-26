@@ -219,6 +219,32 @@ void GameAlgorithm::setBlackHighlightsType(QPoint clickedPoint)
 //Enemies on riht side of piece
         checkTopRightEnemiesPos(x, y);
     }
+
+    if( board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::BlackQueen)
+    {
+// top left
+        for(int c = clickedPoint.x() - 1, r = clickedPoint.y() - 1; c >= 0 && r >= 0; --c, --r)
+        {
+            setHighlightType(c, r, GameAlgorithm::Highlight);
+        }
+// top right
+        for(int c = clickedPoint.x() + 1,  r = clickedPoint.y() - 1; c < board()->getColumns() && r >= 0; ++c, --r)
+        {
+            setHighlightType(c, r, GameAlgorithm::Highlight);
+        }
+// bottom left
+        for(int c = clickedPoint.x() - 1, r = clickedPoint.y() + 1; c >= 0 && r < board()->getColumns();  --c, ++r)
+        {
+            setHighlightType(c, r, GameAlgorithm::Highlight);
+        }
+// bottom right
+        for(int c = clickedPoint.x() + 1, r = clickedPoint.y() + 1; c < board()->getColumns() && r < board()->getRows(); ++c, ++r)
+        {
+            setHighlightType(c, r, GameAlgorithm::Highlight);
+        }
+
+
+    }
 }
 
 void GameAlgorithm::setWhiteHighlightsType(QPoint clickedPoint)
@@ -252,6 +278,32 @@ void GameAlgorithm::setWhiteHighlightsType(QPoint clickedPoint)
             }
 //Enemies on right side of piece
             checkBottomRightEnemiesPos(x, y);
+
+        }
+
+        if( board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::WhiteQueen)
+        {
+    // top left
+            for(int c = clickedPoint.x() - 1, r = clickedPoint.y() - 1; c >= 0 && r >= 0; --c, --r)
+            {
+                setHighlightType(c, r, GameAlgorithm::Highlight);
+            }
+    // top right
+            for(int c = clickedPoint.x() + 1,  r = clickedPoint.y() - 1; c < board()->getColumns() && r >= 0; ++c, --r)
+            {
+                setHighlightType(c, r, GameAlgorithm::Highlight);
+            }
+    // bottom left
+            for(int c = clickedPoint.x() - 1, r = clickedPoint.y() + 1; c >= 0 && r < board()->getColumns();  --c, ++r)
+            {
+                setHighlightType(c, r, GameAlgorithm::Highlight);
+            }
+    // bottom right
+            for(int c = clickedPoint.x() + 1, r = clickedPoint.y() + 1; c < board()->getColumns() && r < board()->getRows(); ++c, ++r)
+            {
+                setHighlightType(c, r, GameAlgorithm::Highlight);
+            }
+
 
         }
 
