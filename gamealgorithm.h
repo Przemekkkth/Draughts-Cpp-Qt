@@ -52,10 +52,10 @@ private:
     HightlightType m_hightlightBoard[8][8];
     ModeType m_type;
 
-    void checkTopLeftEnemiesPos(int xPos, int yPos);
-    void checkTopRightEnemiesPos(int xPos, int yPos);
-    void checkBottomLeftEnemiesPos(int xPos, int yPos);
-    void checkBottomRightEnemiesPos(int xPos, int yPos);
+    void checkTopLeftEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece);
+    void checkTopRightEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece);
+    void checkBottomLeftEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece);
+    void checkBottomRightEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece);
 
     void removeEnemiesForPlayer1(QPoint oldClicked, QPoint newClicked);
     void removeEnemiesForPlayer2(QPoint oldClicked, QPoint newClicked);

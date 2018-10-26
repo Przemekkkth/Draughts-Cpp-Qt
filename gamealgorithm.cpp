@@ -209,7 +209,7 @@ void GameAlgorithm::setBlackHighlightsType(QPoint clickedPoint)
             setModeType(GameAlgorithm::MoveMode);
         }
 //Enemies on left side of piece
-        checkTopLeftEnemiesPos(x, y);
+        checkTopLeftEnemiesPos(x, y, GameBoard::WhitePiece);
 //Empty position on right
         if( (x+1) >= 0 && (y - 1) >= 0 && board()->boardData(x + 1, y - 1) == GameBoard::Empty )
         {
@@ -217,7 +217,7 @@ void GameAlgorithm::setBlackHighlightsType(QPoint clickedPoint)
             setModeType(GameAlgorithm::MoveMode);
         }
 //Enemies on riht side of piece
-        checkTopRightEnemiesPos(x, y);
+        checkTopRightEnemiesPos(x, y, GameBoard::WhitePiece);
     }
 
     if( board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::BlackQueen)
@@ -269,7 +269,7 @@ void GameAlgorithm::setWhiteHighlightsType(QPoint clickedPoint)
                 setModeType(GameAlgorithm::MoveMode);
             }
 //Enemies on left side of piece
-            checkBottomLeftEnemiesPos(x, y);
+            checkBottomLeftEnemiesPos(x, y, GameBoard::BlackPiece);
 //Empty position on right
             if( (x + 1 ) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x + 1, y + 1) == GameBoard::Empty )
             {
@@ -277,7 +277,7 @@ void GameAlgorithm::setWhiteHighlightsType(QPoint clickedPoint)
                  setModeType(GameAlgorithm::MoveMode);
             }
 //Enemies on right side of piece
-            checkBottomRightEnemiesPos(x, y);
+            checkBottomRightEnemiesPos(x, y, GameBoard::BlackPiece);
 
         }
 
@@ -336,18 +336,18 @@ void GameAlgorithm::checkWinCondition()
     }
 }
 
-void GameAlgorithm::checkTopLeftEnemiesPos(int xPos, int yPos)
+void GameAlgorithm::checkTopLeftEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece)
 {
     for(int i = 1; i <= board()->getRows(); i += 2)
     {
-        if( (xPos - i) >= 0 && (yPos - i) >= 0 && board()->boardData(xPos - i, yPos - i) == GameBoard::WhitePiece)
+        if( (xPos - i) >= 0 && (yPos - i) >= 0 && board()->boardData(xPos - i, yPos - i) == piece)
         {
             if( (xPos - i - 1) >= 0 && (yPos - i - 1) >= 0 && board()->boardData(xPos - i - 1, yPos - i - 1) == GameBoard::Empty)
             {
                 setHighlightType(xPos - i, yPos - i, GameAlgorithm::Enemy);
                 setHighlightType(xPos - i - 1, yPos - i - 1, GameAlgorithm::PossibleDestroyEnemy);
                 setModeType(GameAlgorithm::MoveMode);
-                checkTopRightEnemiesPos(xPos - i - 1, yPos - i - 1);
+                checkTopRightEnemiesPos(xPos - i - 1, yPos - i - 1, piece);
             }
             else{
                 return;
@@ -360,18 +360,18 @@ void GameAlgorithm::checkTopLeftEnemiesPos(int xPos, int yPos)
     }
 }
 
-void GameAlgorithm::checkTopRightEnemiesPos(int xPos, int yPos)
+void GameAlgorithm::checkTopRightEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece)
 {
     for(int i = 1; i <= board()->getRows() ; i+= 2)
     {
-        if( (xPos + i) < board()->getColumns() && (yPos - i) >= 0 && board()->boardData(xPos + i, yPos - i) == GameBoard::WhitePiece)
+        if( (xPos + i) < board()->getColumns() && (yPos - i) >= 0 && board()->boardData(xPos + i, yPos - i) == piece)
         {
             if( (xPos + i + 1) < board()->getColumns() && (yPos - i - 1) >= 0 && board()->boardData(xPos + i + 1, yPos - i -1) == GameBoard::Empty)
             {
                 setHighlightType(xPos + i, yPos - i, GameAlgorithm::Enemy);
                 setHighlightType(xPos + i + 1, yPos - i - 1, GameAlgorithm::PossibleDestroyEnemy);
                 setModeType(GameAlgorithm::MoveMode);
-                checkTopLeftEnemiesPos(xPos + i + 1, yPos - i - 1);
+                checkTopLeftEnemiesPos(xPos + i + 1, yPos - i - 1, piece);
             }
             else{
                 return;
@@ -384,18 +384,18 @@ void GameAlgorithm::checkTopRightEnemiesPos(int xPos, int yPos)
     }
 }
 
-void GameAlgorithm::checkBottomLeftEnemiesPos(int xPos, int yPos)
+void GameAlgorithm::checkBottomLeftEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece)
 {
     for(int i = 1; i <= board()->getRows(); i += 2)
     {
-        if( (xPos - i) >= 0 && (yPos + i) < board()->getColumns() && board()->boardData(xPos -  i, yPos + i) == GameBoard::BlackPiece)
+        if( (xPos - i) >= 0 && (yPos + i) < board()->getColumns() && board()->boardData(xPos -  i, yPos + i) == piece)
         {
             if( (xPos - i - 1) >= 0 && (yPos + i + 1) < board()->getColumns() && board()->boardData(xPos - i - 1, yPos + i + 1) == GameBoard::Empty)
             {
                 setHighlightType(xPos - i, yPos + i, GameAlgorithm::Enemy);
                 setHighlightType(xPos - i - 1, yPos + i + 1, GameAlgorithm::PossibleDestroyEnemy);
                 setModeType(GameAlgorithm::MoveMode);
-                checkBottomRightEnemiesPos(xPos - i - 1, yPos + i + 1);
+                checkBottomRightEnemiesPos(xPos - i - 1, yPos + i + 1, piece);
             }
             else{
                 return;
@@ -407,7 +407,7 @@ void GameAlgorithm::checkBottomLeftEnemiesPos(int xPos, int yPos)
     }
 }
 
-void GameAlgorithm::checkBottomRightEnemiesPos(int xPos, int yPos)
+void GameAlgorithm::checkBottomRightEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece)
 {
     for(int i = 1; i <= board()->getRows(); i += 2)
     {
@@ -418,7 +418,7 @@ void GameAlgorithm::checkBottomRightEnemiesPos(int xPos, int yPos)
                 setHighlightType(xPos + i, yPos + i, GameAlgorithm::Enemy);
                 setHighlightType(xPos + i + 1, yPos + i + 1, GameAlgorithm::PossibleDestroyEnemy);
                 setModeType(GameAlgorithm::MoveMode);
-                checkBottomLeftEnemiesPos(xPos + i + 1, yPos + i + 1);
+                checkBottomLeftEnemiesPos(xPos + i + 1, yPos + i + 1, piece);
             }
             else{
                 return;

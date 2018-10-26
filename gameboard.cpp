@@ -91,7 +91,7 @@ void GameBoard::initBoard()
     setBoardData(6, 7, BlackPiece);
 
     setBoardData(5,6, WhitePiece);
-    setBoardData(3, 4, WhiteQueen);
+    setBoardData(3, 4, WhitePiece);
     setBoardData(1,2, WhitePiece);
 
     setBoardData(5,4, WhitePiece);
