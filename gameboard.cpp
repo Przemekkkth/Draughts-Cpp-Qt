@@ -97,6 +97,7 @@ void GameBoard::initBoard()
     setBoardData(5,4, WhitePiece);
     setBoardData(3, 2, WhitePiece);
 
+    setBoardData(2, 1, WhitePiece);
 }
 
 bool GameBoard::movePiece(int fromX, int fromY, int toX, int toY)
