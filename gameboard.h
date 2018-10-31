@@ -21,6 +21,8 @@ public:
     void setBoardData(int x, int y, BoardPiece p);
     BoardPiece boardData(int x, int y);
     bool movePiece(int fromX, int fromY, int toX, int toY);
+
+    void debugBoard();
 signals:
 
 public slots:

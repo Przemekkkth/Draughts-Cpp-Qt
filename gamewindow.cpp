@@ -17,6 +17,7 @@ GameWindow::GameWindow(QWidget *parent)
     connect(this, SIGNAL(pieceClicked(QPoint)), this, SLOT(update()));
   //  setGameMode(PlayerVsPlayer);
    // setCurrentPlayer(Player1);
+
 }
 
 GameWindow::~GameWindow()
@@ -35,6 +36,7 @@ void GameWindow::paintEvent(QPaintEvent*)
     drawCorners(&painter);
     drawPieces(&painter);
     drawHightlight(&painter);
+    update();
 }
 
 void GameWindow::drawBoardRow(QPainter *painter, int y)

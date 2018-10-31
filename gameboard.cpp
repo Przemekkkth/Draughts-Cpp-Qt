@@ -1,4 +1,5 @@
 #include "gameboard.h"
+#include <QDebug>
 
 GameBoard::GameBoard(int rows, int columns, QObject *parent) : m_rows(rows), m_columns(columns), QObject(parent)
 {
@@ -92,7 +93,9 @@ void GameBoard::initBoard()
 
     setBoardData(5,6, WhitePiece);
     setBoardData(3, 4, WhitePiece);
-    setBoardData(1,2, WhitePiece);
+//    setBoardData(1,2, WhitePiece);
+
+    setBoardData(1,2, BlackQueen);
 
     setBoardData(5,4, WhitePiece);
     setBoardData(3, 2, WhitePiece);
@@ -102,8 +105,9 @@ void GameBoard::initBoard()
 
 bool GameBoard::movePiece(int fromX, int fromY, int toX, int toY)
 {
-    if(boardData(fromX, fromY) == Empty)
+    if(boardData(fromX, fromY) == Empty){
         return false;
+    }
 
     setBoardData(toX, toY, boardData(fromX, fromY));
     setBoardData(fromX, fromY, Empty);
@@ -128,4 +132,37 @@ int GameBoard::countOfBlack()
             if( boardData(r, c) == BlackPiece || boardData(r, c) == BlackQueen)
                 countOfBlack++;
     return countOfBlack;
+}
+
+void GameBoard::debugBoard()
+{
+    for(int r = 0; r < m_rows; ++r)
+    {
+        QString line = "";
+        for(int c = 0; c < m_columns; ++c)
+        {
+
+            if(boardData(r, c) == BlackPiece)
+            {
+                line += "(" + QString::number(r) + ", " + QString::number(c) + " ) " + "BP";
+            }
+            else if(boardData(r, c) == WhitePiece)
+            {
+                line += "(" + QString::number(r) + ", " + QString::number(c) + " ) " + "WP";
+            }
+            else if( boardData(r, c) == BlackQueen)
+            {
+                line += "(" + QString::number(r) + ", " + QString::number(c) + " ) " + "BQ";
+            }
+            else if( boardData(r, c) == WhiteQueen)
+            {
+                line += "(" + QString::number(r) + ", " + QString::number(c) + " ) " + "WQ";
+            }
+            else
+            {
+                line += "(" + QString::number(r) + ", " + QString::number(c) + " ) " + "EE";
+            }
+        }
+        qDebug() << line;
+    }
 }
