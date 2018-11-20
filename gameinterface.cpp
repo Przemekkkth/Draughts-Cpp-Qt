@@ -61,4 +61,8 @@ void GameInterface::createConnections()
         m_mainContainer->setCurrentIndex(0 );
     });
 
+    connect(m_gameMenu, &GameMenu::pvpClicked, m_gameMainWindow, &GameMainWindow::pvpClicked);
+    connect(m_gameMenu, &GameMenu::pvcClicked, m_gameMainWindow, &GameMainWindow::pvcClicked);
+
+
 }

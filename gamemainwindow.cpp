@@ -142,6 +142,9 @@ void GameMainWindow::createConnections()
         QMessageBox::information(this, tr("Information"), textWin);
         m_gameWindow->getAlgorithm()->restart();
     });
+
+    connect(this, &GameMainWindow::pvpClicked, m_gameWindow, &GameWindow::pvpClicked);
+    connect(this, &GameMainWindow::pvcClicked, m_gameWindow, &GameWindow::pvcClicked);
 }
 
 void GameMainWindow::setPlayer1Name(const QString& name)

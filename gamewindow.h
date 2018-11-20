@@ -60,6 +60,8 @@ protected:
     void mousePressEvent(QMouseEvent*);
 signals:
     void pieceClicked(QPoint);
+    void pvpClicked();
+    void pvcClicked();
 
 };
 

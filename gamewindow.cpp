@@ -15,6 +15,8 @@ GameWindow::GameWindow(QWidget *parent)
    // setCurrentClickedPiece(QPoint(-1, -1));
     connect(this, SIGNAL(pieceClicked(QPoint)), algorithm, SLOT(setModes(QPoint)));
     connect(this, SIGNAL(pieceClicked(QPoint)), this, SLOT(update()));
+    connect(this, &GameWindow::pvpClicked, algorithm, &GameAlgorithm::setPlayerVsPlayerMode);
+    connect(this, &GameWindow::pvcClicked, algorithm, &GameAlgorithm::setPlayerVsComputerMode);
   //  setGameMode(PlayerVsPlayer);
    // setCurrentPlayer(Player1);
 

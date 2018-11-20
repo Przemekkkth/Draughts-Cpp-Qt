@@ -37,12 +37,13 @@ public:
     void setHightlightPointPiece(const QPoint&);
     QPoint hightlightPointPiece() const;
 
-    enum GameMode{PlayerVsPlayer, PlayerVsComputer};
+    enum GameMode{None, PlayerVsPlayer, PlayerVsComputer};
     GameMode gameMode() const;
     void setGameMode(GameMode mode);
 private:
     void setBlackHighlightsType(QPoint clickedPoint);
     void setWhiteHighlightsType(QPoint clickedPoint);
+    void setComputerWhiteHighlightsType(QPoint clickedPoint);
 
     GameBoard* m_board;
     QPoint m_hightlightPointPiece;
@@ -61,15 +62,21 @@ private:
     void removeEnemiesForPlayer2(QPoint oldClicked, QPoint newClicked);
 
     void checkReplacementPieceToQueen();
+
+    QPoint generateRandomWhiteHighlightPiece();
 private slots:
     void setHighlightsType(QPoint clickedPoint);
     void setMovesType(QPoint clickedPoint);
     void setModes(QPoint clickedPoint);
+public slots:
+    void setPlayerVsPlayerMode();
+    void setPlayerVsComputerMode();
 signals:
     void countOfBlackPiecesChanged(int);
     void countOfWhitePiecesChanged(int);
     void currentPlayerChanged(Player player);
     void playerWins(Player player);
+
 };
 
 #endif // GAMEALGORITHM_H

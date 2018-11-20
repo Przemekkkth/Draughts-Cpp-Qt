@@ -19,6 +19,8 @@ public:
     }
 signals:
     void exitClicked();
+    void pvpClicked();
+    void pvcClicked();
 private slots:
     void setScoreP1(int val);
     void setScoreP2(int val);

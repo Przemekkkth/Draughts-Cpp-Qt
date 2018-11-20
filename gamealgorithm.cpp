@@ -8,7 +8,7 @@ GameAlgorithm::GameAlgorithm(GameBoard *board, QObject *parent) :  QObject(paren
     m_currentPlayer = Player2;
     setModeType(HightlightMode);
     setHightlightPointPiece(QPoint(-1, -1 ));
-    setGameMode(PlayerVsPlayer);
+    //setGameMode(PlayerVsPlayer);
     setCurrentPlayer(Player1);
 
 }
@@ -98,6 +98,17 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
              setWhiteHighlightsType(clickedPoint);
          }
 
+    }
+    else if( gameMode() == PlayerVsComputer)
+    {
+        if( currentPlayer() == Player1)
+        {
+            setBlackHighlightsType(clickedPoint);
+        }
+        else // Computer
+        {
+              setComputerWhiteHighlightsType(clickedPoint);
+        }
     }
 }
 
@@ -348,7 +359,10 @@ void GameAlgorithm::setWhiteHighlightsType(QPoint clickedPoint)
 
 
         }
+}
 
+void GameAlgorithm::setComputerWhiteHighlightsType(QPoint clickedPoint)
+{
 
 }
 
@@ -734,5 +748,32 @@ void GameAlgorithm::checkReplacementPieceToQueen()
             board()->setBoardData(column, board()->getRows() - 1, GameBoard::WhiteQueen);
         }
     }
+
+}
+
+void GameAlgorithm::setPlayerVsPlayerMode()
+{
+    setGameMode(PlayerVsPlayer);
+}
+
+void GameAlgorithm::setPlayerVsComputerMode()
+{
+    setGameMode(PlayerVsComputer);
+}
+
+QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
+{
+    QVector<QPoint> possiblePoints;
+    for(int x = 0; x < board()->getRows(); ++x)
+    {
+        for(int y = 0; y < board()->getColumns(); ++y)
+        {
+            if( board()->boardData(x, y) == GameBoard::WhitePiece)
+            {
+                possiblePoints << QPoint(x,y);
+            }
+        }
+    }
+
 
 }

@@ -17,6 +17,8 @@ public:
 
 signals:
     void nextClicked();
+    void pvpClicked();
+    void pvcClicked();
 public slots:
 
 private:

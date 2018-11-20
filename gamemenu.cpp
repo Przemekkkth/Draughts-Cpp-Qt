@@ -15,6 +15,8 @@ GameMenu::GameMenu(QWidget *parent) : QWidget(parent)
     createStyleSheets();
     createConnections();
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    emit pvpClicked();
+
 }
 
 void GameMenu::createWidgets()
@@ -113,7 +115,18 @@ void GameMenu::createStyleSheets()
 
 void GameMenu::createConnections()
 {
+
     connect(m_nextButton, &QPushButton::clicked, this, &GameMenu::nextClicked);
+    connect(m_nextButton, &QPushButton::clicked, this, [this](){
+                if(m_PVPmode->isChecked())
+                {
+                    emit pvpClicked();
+                }
+                else
+                {
+                    emit pvcClicked();
+                }
+            });
     connect(m_PVPmode, &QRadioButton::clicked, this, [this]()
     {
         m_nextButton->setEnabled(false);
@@ -121,7 +134,7 @@ void GameMenu::createConnections()
         showPvPEdits();
     });
 
-    connect(m_PVCmode, &QRadioButton::clicked, this, [this]
+    connect(m_PVCmode, &QRadioButton::clicked, this, [this]()
     {
         m_nextButton->setEnabled(false);
         hidePvPEdits();
@@ -133,6 +146,7 @@ void GameMenu::createConnections()
     connect(m_player1VsCompEdit, &QLineEdit::textChanged, this, &GameMenu::checkNextButtonEnabled);
 
     m_PVPmode->click();
+
 }
 
 void GameMenu::hidePvPEdits()
