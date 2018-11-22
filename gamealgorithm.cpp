@@ -10,7 +10,6 @@ GameAlgorithm::GameAlgorithm(GameBoard *board, QObject *parent) :  QObject(paren
     setHightlightPointPiece(QPoint(-1, -1 ));
     //setGameMode(PlayerVsPlayer);
     setCurrentPlayer(Player1);
-
 }
 
 GameBoard* GameAlgorithm::board() const
@@ -108,7 +107,8 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
         else
         {
             QPoint p = generateRandomWhiteHighlightPiece();
-             setComputerWhiteHighlightsType(p);
+            setComputerWhiteHighlightsType(p);
+            setMovesType(generateRandomWhiteMovePiece(p));
         }
     }
 }
@@ -802,6 +802,7 @@ void GameAlgorithm::removeEnemiesForPlayer2(QPoint oldClicked, QPoint newClicked
 
     }
 }
+
 void GameAlgorithm::checkReplacementPieceToQueen()
 {
     for(int column = 0; column < board()->getColumns(); ++column)
@@ -857,4 +858,25 @@ QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
     setHightlightPointPiece(possiblePoints.at(choose));
     //emit boardChanged();
     return  possiblePoints.at(choose);
+}
+
+QPoint GameAlgorithm::generateRandomWhiteMovePiece(QPoint piece)
+{
+    QVector<QPoint> possiblePoint;
+    if(board()->boardData(piece.x(), piece.y()) == GameBoard::WhitePiece)
+    {
+        for(int r = 0; r < board()->getRows(); ++r)
+        {
+            for(int c = 0; c < board()->getColumns(); ++c)
+            {
+                if( highlightType(r, c) == Highlight)
+                {
+                    possiblePoint.append(QPoint(r,c));
+                }
+            }
+        }
+    }
+
+    int randSize = possiblePoint.size();
+    return  possiblePoint.at(qrand() % randSize);
 }

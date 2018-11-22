@@ -64,6 +64,8 @@ private:
     void checkReplacementPieceToQueen();
 
     QPoint generateRandomWhiteHighlightPiece();
+
+    QPoint generateRandomWhiteMovePiece(QPoint);
 private slots:
     void setHighlightsType(QPoint clickedPoint);
     void setMovesType(QPoint clickedPoint);
