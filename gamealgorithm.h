@@ -67,15 +67,16 @@ private:
 private slots:
     void setHighlightsType(QPoint clickedPoint);
     void setMovesType(QPoint clickedPoint);
-    void setModes(QPoint clickedPoint);
 public slots:
     void setPlayerVsPlayerMode();
     void setPlayerVsComputerMode();
+     void setModes(QPoint clickedPoint);
 signals:
     void countOfBlackPiecesChanged(int);
     void countOfWhitePiecesChanged(int);
     void currentPlayerChanged(Player player);
     void playerWins(Player player);
+    void boardChanged(QPoint);
 
 };
 

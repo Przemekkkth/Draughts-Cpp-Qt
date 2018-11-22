@@ -105,9 +105,10 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
         {
             setBlackHighlightsType(clickedPoint);
         }
-        else // Computer
+        else
         {
-              setComputerWhiteHighlightsType(clickedPoint);
+            QPoint p = generateRandomWhiteHighlightPiece();
+             setComputerWhiteHighlightsType(p);
         }
     }
 }
@@ -185,7 +186,10 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
 
     Player currentP = currentPlayer();
     setCurrentPlayer( currentP == Player1 ? Player2 : Player1 );
-
+    if(gameMode() == PlayerVsComputer)
+    {
+        emit boardChanged(QPoint(0, 0));
+    }
     setModeType(GameAlgorithm::HightlightMode);
     initHightlightType();
 
@@ -363,7 +367,74 @@ void GameAlgorithm::setWhiteHighlightsType(QPoint clickedPoint)
 
 void GameAlgorithm::setComputerWhiteHighlightsType(QPoint clickedPoint)
 {
+    if(board()->boardData(clickedPoint.x(), clickedPoint.y() ) == GameBoard::BlackPiece || board()->boardData(clickedPoint.x(), clickedPoint.y() ) == GameBoard::Empty || board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::BlackQueen)
+    {
+        return;
+    }
+    ///////////////////////////////////////////////White Piece
+        if( board()->boardData(clickedPoint.x() , clickedPoint.y() ) == GameBoard::WhitePiece )
+        {
+            int x = clickedPoint.x();
+            int y = clickedPoint.y();
+            setHightlightPointPiece(clickedPoint);
+//Empty position on left
+            if( (x - 1) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x-1, y + 1) == GameBoard::Empty)
+            {
 
+                setHighlightType(x-1, y + 1, GameAlgorithm::Highlight);
+                setModeType(GameAlgorithm::MoveMode);
+            }
+//Enemies on left side of piece
+            checkBottomLeftEnemiesPos(x, y, GameBoard::BlackPiece);
+//Empty position on right
+            if( (x + 1 ) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x + 1, y + 1) == GameBoard::Empty )
+            {
+                 setHighlightType(x+1, y + 1, GameAlgorithm::Highlight);
+                 setModeType(GameAlgorithm::MoveMode);
+            }
+//Enemies on right side of piece
+            checkBottomRightEnemiesPos(x, y, GameBoard::BlackPiece);
+
+        }
+
+        if( board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::WhiteQueen)
+        {
+            int x = clickedPoint.x();
+            int y = clickedPoint.y();
+            setHightlightPointPiece(clickedPoint);
+    //Empty
+            //top-left
+            if( (x-1) >= 0 && (y - 1) >= 0 && board()->boardData(x-1, y - 1) == GameBoard::Empty )
+            {
+                setHighlightType(x-1, y -1, GameAlgorithm::Highlight);
+                setModeType(GameAlgorithm::MoveMode);
+            }
+            //top-right
+            if( (x+1) < board()->getColumns() && (y - 1) >= 0 && board()->boardData(x+1, y - 1) == GameBoard::Empty )
+            {
+                setHighlightType(x+1, y -1, GameAlgorithm::Highlight);
+                setModeType(GameAlgorithm::MoveMode);
+            }
+            //bottom-left
+            if( (x-1) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x-1, y + 1) == GameBoard::Empty )
+            {
+                setHighlightType(x-1, y +1, GameAlgorithm::Highlight);
+                setModeType(GameAlgorithm::MoveMode);
+            }
+            //bottom-right
+            if( (x+1) < board()->getColumns() && (y + 1) <  board()->getRows() && board()->boardData(x+1, y + 1) == GameBoard::Empty )
+            {
+                setHighlightType(x+1, y+1, GameAlgorithm::Highlight);
+                setModeType(GameAlgorithm::MoveMode);
+            }
+    //Enemies
+            checkBottomLeftEnemiesPos(x, y, GameBoard::BlackPiece);
+            checkBottomRightEnemiesPos(x, y, GameBoard::BlackPiece);
+            checkTopLeftEnemiesPos(x, y, GameBoard::BlackPiece);
+            checkTopRightEnemiesPos(x, y, GameBoard::BlackPiece);
+
+
+        }
 }
 
 void GameAlgorithm::setCurrentPlayer(Player p)
@@ -770,10 +841,20 @@ QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
         {
             if( board()->boardData(x, y) == GameBoard::WhitePiece)
             {
-                possiblePoints << QPoint(x,y);
+                if( (x - 1) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x-1, y + 1) == GameBoard::Empty)
+                {
+                    possiblePoints << QPoint(x,y);
+                }
+
+                if( (x + 1 ) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x + 1, y + 1) == GameBoard::Empty )
+                {
+                     possiblePoints << QPoint(x, y);
+                }
             }
         }
     }
-
-
+    int choose = qrand() % possiblePoints.size();
+    setHightlightPointPiece(possiblePoints.at(choose));
+    //emit boardChanged();
+    return  possiblePoints.at(choose);
 }

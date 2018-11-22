@@ -18,7 +18,7 @@ GameWindow::GameWindow(QWidget *parent)
     connect(this, &GameWindow::pvpClicked, algorithm, &GameAlgorithm::setPlayerVsPlayerMode);
     connect(this, &GameWindow::pvcClicked, algorithm, &GameAlgorithm::setPlayerVsComputerMode);
     connect(algorithm, &GameAlgorithm::boardChanged, this, [this](){
-        qDebug() << "Window";
+       
         QPoint i = QPoint(-1,-1);
         QMetaObject::invokeMethod(algorithm, "setModes", Qt::QueuedConnection, Q_ARG(QPoint, i));
        update();
