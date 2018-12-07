@@ -20,6 +20,7 @@ GameWindow::GameWindow(QWidget *parent)
     connect(algorithm, &GameAlgorithm::boardChanged, this, [this](){
         //invoke invalid point click for reset highlight board
         QPoint i = QPoint(-1,-1);
+        emit pieceClicked(QPoint(-1, -1));
         QMetaObject::invokeMethod(algorithm, "setModes", Qt::QueuedConnection, Q_ARG(QPoint, i));
         update();
     });

@@ -24,7 +24,6 @@ public:
     void setModeType(ModeType t);
     ModeType getModeType() const;
 
-
     void initHightlightType();
     void restart();
 

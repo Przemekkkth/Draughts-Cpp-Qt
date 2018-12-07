@@ -1,6 +1,7 @@
 #include "gamealgorithm.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QThread>
 
 GameAlgorithm::GameAlgorithm(GameBoard *board, QObject *parent) :  QObject(parent), m_board(board)
 {
@@ -100,15 +101,17 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
     }
     else if( gameMode() == PlayerVsComputer)
     {
+
         if( currentPlayer() == Player1)
         {
-            setBlackHighlightsType(clickedPoint);
+            setBlackHighlightsType(clickedPoint);            
         }
         else
         {
             QPoint p = generateRandomWhiteHighlightPiece();
             setComputerWhiteHighlightsType(p);
             setMovesType(generateRandomWhiteMovePiece(p));
+            emit boardChanged(QPoint(0, 0));
         }
     }
 }
@@ -222,7 +225,7 @@ void GameAlgorithm::setGameMode(GameMode mode)
 
 void GameAlgorithm::setBlackHighlightsType(QPoint clickedPoint)
 {
-
+    qDebug() << "Here";
 
     if(board()->boardData(clickedPoint.x(), clickedPoint.y() ) == GameBoard::WhitePiece || board()->boardData(clickedPoint.x(), clickedPoint.y() ) == GameBoard::Empty || board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::WhiteQueen )
     {
@@ -876,6 +879,7 @@ QPoint GameAlgorithm::generateRandomWhiteMovePiece(QPoint piece)
             }
         }
     }
+   // QThread::sleep(2);
 
     int randSize = possiblePoint.size();
     return  possiblePoint.at(qrand() % randSize);
