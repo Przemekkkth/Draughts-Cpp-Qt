@@ -18,9 +18,8 @@ GameWindow::GameWindow(QWidget *parent)
     connect(this, &GameWindow::pvpClicked, algorithm, &GameAlgorithm::setPlayerVsPlayerMode);
     connect(this, &GameWindow::pvcClicked, algorithm, &GameAlgorithm::setPlayerVsComputerMode);
     connect(algorithm, &GameAlgorithm::boardChanged, this, [this](){
-        //invoke invalid point click for reset highlight board
+        setCurrentClickedPiece(QPoint(0,0));
         QPoint i = QPoint(-1,-1);
-        emit pieceClicked(QPoint(-1, -1));
         QMetaObject::invokeMethod(algorithm, "setModes", Qt::QueuedConnection, Q_ARG(QPoint, i));
         update();
     });
