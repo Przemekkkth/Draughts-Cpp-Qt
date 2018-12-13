@@ -54,8 +54,18 @@ void GameInterface::createConnections()
 {
     connect(m_gameMenu, &GameMenu::nextClicked, this, [this]{
         m_mainContainer->setCurrentIndex(1);
-        m_gameMainWindow->setPlayer1Name( m_gameMenu->player1VSPlayerName() );
-        m_gameMainWindow->setPlayer2Name( m_gameMenu->player2VSPlayerName() );
+        if (m_gameMainWindow->window()->getAlgorithm()->gameMode() == GameAlgorithm::PlayerVsPlayer)
+        {
+            m_gameMainWindow->setPlayer1Name( m_gameMenu->player1VSPlayerName() );
+            m_gameMainWindow->setPlayer2Name( m_gameMenu->player2VSPlayerName() );
+        }
+        else if( m_gameMainWindow->window()->getAlgorithm()->gameMode() == GameAlgorithm::PlayerVsComputer )
+        {
+            qDebug() << "H";
+            m_gameMainWindow->setPlayer1Name( m_gameMenu->playerVsCompName() );
+            m_gameMainWindow->setPlayer2Name(tr("Computer"));
+        }
+        qDebug() << "cC";
     });
     connect(m_gameMainWindow, &GameMainWindow::exitClicked, this, [this]{
         m_mainContainer->setCurrentIndex(0 );
