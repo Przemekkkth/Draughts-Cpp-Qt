@@ -110,6 +110,7 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
         {
             QPoint p = generateRandomWhiteHighlightPiece();
             setComputerWhiteHighlightsType(p);
+//
             setMovesType(generateRandomWhiteMovePiece(p));
             emit boardChanged(QPoint(0, 0));
         }

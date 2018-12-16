@@ -116,7 +116,6 @@ void GameMenu::createStyleSheets()
 void GameMenu::createConnections()
 {
 
-    connect(m_nextButton, &QPushButton::clicked, this, &GameMenu::nextClicked);
     connect(m_nextButton, &QPushButton::clicked, this, [this](){
                 if(m_PVPmode->isChecked())
                 {
@@ -127,6 +126,7 @@ void GameMenu::createConnections()
                     emit pvcClicked();
                 }
             });
+    connect(m_nextButton, &QPushButton::clicked, this, &GameMenu::nextClicked);
     connect(m_PVPmode, &QRadioButton::clicked, this, [this]()
     {
         m_nextButton->setEnabled(false);

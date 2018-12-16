@@ -61,11 +61,11 @@ void GameInterface::createConnections()
         }
         else if( m_gameMainWindow->window()->getAlgorithm()->gameMode() == GameAlgorithm::PlayerVsComputer )
         {
-            qDebug() << "H";
+
             m_gameMainWindow->setPlayer1Name( m_gameMenu->playerVsCompName() );
             m_gameMainWindow->setPlayer2Name(tr("Computer"));
         }
-        qDebug() << "cC";
+
     });
     connect(m_gameMainWindow, &GameMainWindow::exitClicked, this, [this]{
         m_mainContainer->setCurrentIndex(0 );
