@@ -851,9 +851,25 @@ QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
                     possiblePoints << QPoint(x,y);
                 }
 
-                if( (x + 1 ) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x + 1, y + 1) == GameBoard::Empty )
+                if( (x + 1 ) < board()->getColumns() && (y + 1) < board()->getRows() && board()->boardData(x + 1, y + 1) == GameBoard::Empty )
                 {
                      possiblePoints << QPoint(x, y);
+                }
+
+                if( (x - 1) >= 0 && (y + 1) < board()->getRows() && (board()->boardData(x + 1, y + 1) == GameBoard::BlackPiece || board()->boardData(x + 1, y + 1) == GameBoard::BlackQueen))
+                {
+                    if( (x - 2) >= 0 && (y + 2) < board()->getRows() && board()->boardData(x - 2, y + 2) == GameBoard::Empty)
+                    {
+                        possiblePoints << QPoint(x, y);
+                    }
+                }
+
+                if( (x + 1) < board()->getColumns() && (y + 1) < board()->getRows() && (board()->boardData(x + 1, y + 1) == GameBoard::BlackPiece || board()->boardData(x + 1, y + 1) == GameBoard::BlackQueen))
+                {
+                    if( (x + 2) < board()->getColumns() && (y + 2) < board()->getRows() && board()->boardData(x + 2, y + 2) == GameBoard::Empty)
+                    {
+                        possiblePoints << QPoint(x, y);
+                    }
                 }
             }
         }
@@ -873,7 +889,7 @@ QPoint GameAlgorithm::generateRandomWhiteMovePiece(QPoint piece)
         {
             for(int c = 0; c < board()->getColumns(); ++c)
             {
-                if( highlightType(r, c) == Highlight)
+                if( highlightType(r, c) == Highlight || highlightType(r,c) == PossibleDestroyEnemy)
                 {
                     possiblePoint.append(QPoint(r,c));
                 }
