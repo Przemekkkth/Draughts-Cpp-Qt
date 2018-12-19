@@ -51,46 +51,24 @@ void GameBoard::initBoard()
     for(int r = 0; r < m_rows; ++r)
         for(int c = 0; c < m_columns; ++c)
             setBoardData(r,c, Empty);
-/*
-//first row  (even/white)
-    for( int idx = 0; idx < getColumns(); ++idx )
-    {
-        if( (idx%2) )
-        {
-            setBoardData(idx, 0, WhitePiece);
-        }
-    }
-//seconde row
-    for( int idx = 0; idx < getColumns(); ++idx )
-    {
-        if( !(idx%2) )
-        {
-            setBoardData(idx, 1, WhitePiece);
-        }
-    }
-//penultimate row
-    for( int idx = 0; idx < getColumns(); ++idx )
-    {
-        if( (idx%2) )
-        {
-            setBoardData(idx, getRows()-2, BlackPiece);
-        }
-    }
-//last row
-    for( int idx = 0; idx < getColumns(); ++idx )
-    {
-        if( !(idx%2) )
-        {
-            setBoardData(idx, getRows()-1, BlackPiece);
-        }
-    }
+
+    setBoardData(1, 0, WhitePiece);
+    setBoardData(3, 0, WhitePiece);
+    setBoardData(5, 0, WhitePiece);
+    setBoardData(7, 0, WhitePiece);
+    setBoardData(0, 1, WhitePiece);
+    setBoardData(2, 1, WhitePiece);
+    setBoardData(4, 1, WhitePiece);
+    setBoardData(6, 1, WhitePiece);
+
+    setBoardData(1, 6, BlackPiece);
+    setBoardData(3, 6, BlackPiece);
+    setBoardData(5, 6, BlackPiece);
+    setBoardData(7, 6, BlackPiece);
     setBoardData(0, 7, BlackPiece);
     setBoardData(2, 7, BlackPiece);
     setBoardData(4, 7, BlackPiece);
     setBoardData(6, 7, BlackPiece);
-*/
-    setBoardData(0, 3, WhitePiece);
-    setBoardData(2, 5, BlackPiece);
 }
 
 bool GameBoard::movePiece(int fromX, int fromY, int toX, int toY)
