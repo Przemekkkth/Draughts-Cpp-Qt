@@ -847,7 +847,7 @@ QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
     {
         for(int y = 0; y < board()->getColumns(); ++y)
         {
-            if( board()->boardData(x, y) == GameBoard::WhitePiece)
+            if( board()->boardData(x, y) == GameBoard::WhitePiece ||  board()->boardData(x, y) == GameBoard::WhiteQueen )
             {
                 if( (x - 1) >= 0 && (y + 1) < board()->getRows() && board()->boardData(x-1, y + 1) == GameBoard::Empty)
                 {
@@ -875,6 +875,33 @@ QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
                     }
                 }
             }
+
+            if( board()->boardData(x,y) == GameBoard::WhiteQueen)
+            {
+                if( (x - 1) >= 0 && (y - 1) >= 0 && board()->boardData(x - 1, y - 1) == GameBoard::Empty)
+                {
+                    possiblePoints << QPoint(x, y);
+                }
+                if( (x + 1) < board()->getColumns() && (y - 1) >= 0 && board()->boardData(x + 1, y - 1) == GameBoard::Empty)
+                {
+                    possiblePoints << QPoint(x, y);
+                }
+                if( (x - 1) >= 0 && (y - 1) >= 0 && (board()->boardData(x - 1, y - 1) == GameBoard::BlackPiece || board()->boardData(x - 1, y - 1) == GameBoard::BlackQueen))
+                {
+                    if( (x - 2) >= 0 && (y - 2) >= 0 && board()->boardData(x - 2, y - 2) == GameBoard::Empty)
+                    {
+                        possiblePoints << QPoint(x, y);
+                    }
+                }
+                if( (x + 1) < board()->getColumns() && (y - 1) >= 0 && (board()->boardData(x + 1, y - 1) == GameBoard::BlackPiece || board()->boardData(x + 1, y - 1) == GameBoard::BlackQueen))
+                {
+                    if( (x + 2) < board()->getColumns() && (y - 2) < board()->getRows() && board()->boardData(x + 2, y - 2) == GameBoard::Empty)
+                    {
+                        possiblePoints << QPoint(x, y);
+                    }
+                }
+
+            }
         }
     }
     int choose = qrand() % possiblePoints.size();
@@ -886,7 +913,7 @@ QPoint GameAlgorithm::generateRandomWhiteHighlightPiece()
 QPoint GameAlgorithm::generateRandomWhiteMovePiece(QPoint piece)
 {
     QVector<QPoint> possiblePoint;
-    if(board()->boardData(piece.x(), piece.y()) == GameBoard::WhitePiece)
+    if(board()->boardData(piece.x(), piece.y()) == GameBoard::WhitePiece || board()->boardData(piece.x(), piece.y()) == GameBoard::WhiteQueen  );
     {
         for(int r = 0; r < board()->getRows(); ++r)
         {
