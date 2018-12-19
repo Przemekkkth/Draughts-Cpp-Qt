@@ -31,7 +31,7 @@ public:
     void setCurrentPlayer(Player p);
     Player currentPlayer() const;
 
-    void checkWinCondition();
+    bool checkWinCondition();
 
     void setHightlightPointPiece(const QPoint&);
     QPoint hightlightPointPiece() const;

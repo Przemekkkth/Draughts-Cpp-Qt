@@ -9,7 +9,6 @@ GameAlgorithm::GameAlgorithm(GameBoard *board, QObject *parent) :  QObject(paren
     m_currentPlayer = Player2;
     setModeType(HightlightMode);
     setHightlightPointPiece(QPoint(-1, -1 ));
-    //setGameMode(PlayerVsPlayer);
     setCurrentPlayer(Player1);
 }
 
@@ -52,6 +51,10 @@ GameAlgorithm::HightlightType GameAlgorithm::highlightType(int x, int y) const
 
 void GameAlgorithm::setModeType(ModeType type)
 {
+    if(m_type == type)
+    {
+        return;
+    }
     m_type = type;
 }
 
@@ -62,6 +65,10 @@ GameAlgorithm::ModeType GameAlgorithm::getModeType() const
 
 void GameAlgorithm::setHightlightPointPiece(const QPoint& p)
 {
+    if(m_hightlightPointPiece == p)
+    {
+        return;
+    }
     m_hightlightPointPiece = p;
 }
 
@@ -73,18 +80,15 @@ QPoint GameAlgorithm::hightlightPointPiece() const
 void GameAlgorithm::restart()
 {
     initHightlightType();
+    setCurrentPlayer(Player1);
     setModeType(HightlightMode);
     setHightlightPointPiece(QPoint(-1, -1 ));
-    setGameMode(PlayerVsPlayer);
-    setCurrentPlayer(Player1);
     board()->initBoard();
 }
 
 void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
 {
     initHightlightType();
-    //setWhiteHighlightsType(clickedPoint);
-    //setBlackHighlightsType(clickedPoint);
     if( gameMode() == PlayerVsPlayer)
     {
      ///////////////////////////////////////////////Black Piece
@@ -93,7 +97,7 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
              setBlackHighlightsType(clickedPoint);
          }
      ///////////////////////////////////////////////White Piece
-         else
+         else if(currentPlayer() == Player2)
          {
              setWhiteHighlightsType(clickedPoint);
          }
@@ -106,7 +110,7 @@ void GameAlgorithm::setHighlightsType(QPoint clickedPoint)
         {
             setBlackHighlightsType(clickedPoint);            
         }
-        else
+        else if(currentPlayer() == Computer)
         {
             QPoint p = generateRandomWhiteHighlightPiece();
             setComputerWhiteHighlightsType(p);
@@ -131,7 +135,7 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
         return;
     }
 
-    if( highlightType( clickedPoint.x(), clickedPoint.y() ) == GameAlgorithm::Highlight )
+    else if( highlightType( clickedPoint.x(), clickedPoint.y() ) == GameAlgorithm::Highlight )
     {
 
         board()->movePiece( hightlightPointPiece().x() ,
@@ -154,7 +158,7 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
     if(currentPlayer() == Player1){
         removeEnemiesForPlayer1(oldClicked, newClicked);
     }
-    else if( currentPlayer() == Player2)
+    else if( currentPlayer() == Player2 || currentPlayer() == Computer)
     {
         removeEnemiesForPlayer2(oldClicked, newClicked);
     }
@@ -166,17 +170,6 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
         emit countOfWhitePiecesChanged( board()->countOfWhite() );
 
     }
-    else if(
-            board()->boardData( clickedPoint.x() , clickedPoint.y() ) == GameBoard::WhitePiece ||
-            board()->boardData( clickedPoint.x() , clickedPoint.y() ) == GameBoard::BlackPiece
-            )
-    {
-        initHightlightType();
-        setModeType(GameAlgorithm::HightlightMode);
-        setHighlightsType(clickedPoint);
-        return;
-
-    }
     else if(board()->boardData( clickedPoint.x() , clickedPoint.y() ) == GameBoard::Empty)
     {
         return;
@@ -186,16 +179,24 @@ void GameAlgorithm::setMovesType(QPoint clickedPoint)
 
     //reset
 
-    checkWinCondition();
-
-    Player currentP = currentPlayer();
-    setCurrentPlayer( currentP == Player1 ? Player2 : Player1 );
-    if(gameMode() == PlayerVsComputer)
-    {
-        emit boardChanged(QPoint(0, 0));
-    }
     setModeType(GameAlgorithm::HightlightMode);
     initHightlightType();
+    if(checkWinCondition())
+    {
+        return;
+    }
+    Player currentP = currentPlayer();
+   // setCurrentPlayer( currentP == Player1 ? Player2 : Player1 );
+    if(gameMode() == PlayerVsComputer)
+    {
+        setCurrentPlayer( currentP == Player1 ? Computer: Player1 );
+        emit boardChanged(QPoint(0, 0));
+    }
+    else
+    {
+        setCurrentPlayer( currentP == Player1 ? Player2 : Player1 );
+    }
+
 
 }
 
@@ -226,7 +227,6 @@ void GameAlgorithm::setGameMode(GameMode mode)
 
 void GameAlgorithm::setBlackHighlightsType(QPoint clickedPoint)
 {
-    qDebug() << "Here";
 
     if(board()->boardData(clickedPoint.x(), clickedPoint.y() ) == GameBoard::WhitePiece || board()->boardData(clickedPoint.x(), clickedPoint.y() ) == GameBoard::Empty || board()->boardData(clickedPoint.x(), clickedPoint.y()) == GameBoard::WhiteQueen )
     {
@@ -455,16 +455,19 @@ GameAlgorithm::Player GameAlgorithm::currentPlayer() const
     return  m_currentPlayer;
 }
 
-void GameAlgorithm::checkWinCondition()
+bool GameAlgorithm::checkWinCondition()
 {
     if( !board()->countOfWhite())
     {
         emit playerWins( Player1 );
+        return true;
     }
     else if( !board()->countOfBlack() )
     {
         emit playerWins( Player2 );
+        return true;
     }
+    return false;
 }
 
 void GameAlgorithm::checkTopLeftEnemiesPos(int xPos, int yPos, GameBoard::BoardPiece piece)

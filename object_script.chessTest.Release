@@ -1,0 +1,16 @@
+INPUT(
+./release\main.o
+./release\gamewindow.o
+./release\gamealgorithm.o
+./release\gameboard.o
+./release\gamemenu.o
+./release\gameinterface.o
+./release\gamemainwindow.o
+./release\qrc_images.o
+./release\moc_gamewindow.o
+./release\moc_gamealgorithm.o
+./release\moc_gameboard.o
+./release\moc_gamemenu.o
+./release\moc_gameinterface.o
+./release\moc_gamemainwindow.o
+);

@@ -140,6 +140,7 @@ void GameMainWindow::createConnections()
             textWin = m_player2Name->text() + " wins!";
         }
         QMessageBox::information(this, tr("Information"), textWin);
+
         m_gameWindow->getAlgorithm()->restart();
     });
 

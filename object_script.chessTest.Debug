@@ -1,0 +1,16 @@
+INPUT(
+./debug\main.o
+./debug\gamewindow.o
+./debug\gamealgorithm.o
+./debug\gameboard.o
+./debug\gamemenu.o
+./debug\gameinterface.o
+./debug\gamemainwindow.o
+./debug\qrc_images.o
+./debug\moc_gamewindow.o
+./debug\moc_gamealgorithm.o
+./debug\moc_gameboard.o
+./debug\moc_gamemenu.o
+./debug\moc_gameinterface.o
+./debug\moc_gamemainwindow.o
+);
