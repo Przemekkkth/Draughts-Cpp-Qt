@@ -1,5 +1,7 @@
 # Draughts-Cpp-Qt
-Project of draughts which use C++/Qt
+|Menu|Board|Game|
+|---|---|---|
+|![Menu](https://user-images.githubusercontent.com/28188300/50330057-19a3a180-04fa-11e9-955e-dbe74890ba6d.gif)|![Board](https://user-images.githubusercontent.com/28188300/50330057-19a3a180-04fa-11e9-955e-dbe74890ba6d.gif)|![Game](https://user-images.githubusercontent.com/28188300/50330057-19a3a180-04fa-11e9-955e-dbe74890ba6d.gif)|
 ## Description
 Draughts-Cpp-Qt is game which can be played in two modes: PlayerVsPlayer and PlayerVSComputer. It has been designed to be eye-candy
 , customizable, and reasonable lightweight.
