@@ -8,7 +8,10 @@ Draughts-Cpp-Qt is game which can be played in two modes: PlayerVsPlayer and Pla
 
 This project works under Windows, Linux and macOS and requires Qt 5.2 or higher.
 ## Screenshots
-To Do : take a images 
+![Image](https://user-images.githubusercontent.com/28188300/50400733-46211d00-0789-11e9-94e3-a86cd1352246.png)
+![Image](https://user-images.githubusercontent.com/28188300/50400757-7f598d00-0789-11e9-9ee8-838a298d30cc.png)
+![Image](https://user-images.githubusercontent.com/28188300/50400787-b9c32a00-0789-11e9-9329-5a28e048a741.png)
+
 ### Installing
 A step by step series  that tell you how to get a execute project.
 Get it from GitHub
