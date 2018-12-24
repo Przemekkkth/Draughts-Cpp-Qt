@@ -24,3 +24,4 @@ qmake && make
 ```
 ## Addons
 * [Qt] (https://www.qt.io/) - Cross-Platform software for embedded & desktop
+* [Describe] (https://en.wikipedia.org/wiki/Draughts) - rules and description
